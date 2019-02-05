@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <property name="LOG_PATH" value="logs"/>
+    <property name="STD_PATTERN"
+              value="%d{dd.MM.yyyy HH:mm:ss.SSS} [%-10thread] [%-5level] [%+30.30logger{15}] - %msg %n"/>
+    <property name="STD_PATTERN_STOUT"
+              value="%d{dd.MM.yyyy HH:mm:ss.SSS} [%-10thread] %highlight(%-5level) %cyan([%+30.30logger{15}]) - %msg %n"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${STD_PATTERN_STOUT}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="app" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/app/app.log</file>
+        <encoder>
+            <pattern>${STD_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="errors" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <file>${LOG_PATH}/errors/errors.log</file>
+        <encoder>
+            <pattern>${STD_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="app"/>
+        <appender-ref ref="errors"/>
+    </root>
+
+</configuration>

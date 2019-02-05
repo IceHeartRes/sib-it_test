@@ -1,11 +1,15 @@
 package com.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * класс лифта
  * считаем что лифт включает в себя кабину и двигатель
  */
 
 public class Elevator extends Thread {
+    private static final Logger log = LoggerFactory.getLogger(Elevator.class);
     /**
      * пауза в цикле что бы не перегружать процесстор пустой работой
      */
@@ -58,7 +62,7 @@ public class Elevator extends Thread {
                     break;
                 case SHUTDOWN:
                     isElevatorRun = false;
-                    System.out.println("Лифт отключен");
+                    log.debug("Лифт отключен");
             }
         }
     }

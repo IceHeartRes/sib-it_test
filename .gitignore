@@ -1,2 +1,11 @@
 
 out/
+.idea/
+
+\.gradle/buildOutputCleanup/
+
+\.gradle/3\.5-rc-2/
+
+build/
+
+\.gradle/2\.10/

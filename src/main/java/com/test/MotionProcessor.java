@@ -1,6 +1,8 @@
 package com.test;
 
 import com.test.exceptions.FloorNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Deque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -10,6 +12,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  */
 
 public class MotionProcessor {
+    private static final Logger log = LoggerFactory.getLogger(MotionProcessor.class);
     /**
      * инстанс лифта
      */
@@ -34,12 +37,12 @@ public class MotionProcessor {
      * лисенер обратной связи позиции лифта
      */
     private final FloorListener floorListener = floorNumber -> {
-        System.out.println("Этаж номер " + floorNumber);
+        log.debug("Этаж номер {}", floorNumber);
         currentFloor = floorNumber;
         final Call call = calls.peek();
         if (currentFloor == call.getFloor() && elevator != null) {
             stopElevator();
-            System.out.println("Лифт остановлен");
+            log.debug("Лифт остановлен");
             nextCall();
         }
     };
@@ -87,7 +90,7 @@ public class MotionProcessor {
         if (currentDirection == ElevatorState.STAY_MOVE) {
             elevator.setState(elevatorState);
             currentDirection = elevatorState;
-            System.out.println("Лифт поехал: " + elevatorState.name());
+            log.debug("Лифт поехал: {}", elevatorState.name());
         }
     }
 
